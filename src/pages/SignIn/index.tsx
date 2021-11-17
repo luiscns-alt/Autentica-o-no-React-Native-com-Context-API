@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Button, StyleSheet } from 'react-native';
-import { signIn } from '../../services/auth';
+import AuthContext from '../../contexts/auth';
 
 const styles = StyleSheet.create({
     container: {
@@ -10,10 +10,12 @@ const styles = StyleSheet.create({
 });
 
 const SignIn: React.FC = () => {
+    const { signed, signIn } = useContext(AuthContext);
+
+    console.log(signed);
+
     async function handleSign() {
-        // email, password (formulário omitido)
-        const response = await signIn();
-        console.log(response);
+        signIn();
     }
 
     return (

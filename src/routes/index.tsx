@@ -1,12 +1,30 @@
 import React, { useContext } from 'react';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 
 import AuthContext from '../contexts/auth';
 
 import AuthRoutes from '../routes/auth.routes';
 import AppRoutes from '../routes/app.routes';
 
+const styles = StyleSheet.create({
+    loading: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+});
+
 const Routes: React.FC = () => {
-    const { signed } = useContext(AuthContext);
+    const { signed, loading } = useContext(AuthContext);
+
+    if (loading) {
+        return (
+            <View style={styles.loading}>
+                <ActivityIndicator size="large" color="#666" />
+            </View>
+        );
+    }
+
     return signed ? <AppRoutes /> : <AuthRoutes />;
 };
 
